@@ -6,6 +6,8 @@ services:
       - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPgAt9fhXzbegtlmv1GaU5Gci4Su+5DGwGDdSop6bDy ubuntu@ip-172-31-78-190
     ports:
       - "2222:22"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   JenkinsAgent_2:
     image: jenkins/ssh-agent:jdk21
     container_name: JenkinsAgent_2
@@ -13,6 +15,8 @@ services:
       - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPgAt9fhXzbegtlmv1GaU5Gci4Su+5DGwGDdSop6bDy ubuntu@ip-172-31-78-190
     ports:
       - "3333:22"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   JenkinsAgent_3:
     image: jenkins/ssh-agent:jdk21
     container_name: JenkinsAgent_3
@@ -20,6 +24,8 @@ services:
       - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAPgAt9fhXzbegtlmv1GaU5Gci4Su+5DGwGDdSop6bDy ubuntu@ip-172-31-78-190
     ports:
       - "4444:22"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   jenkins:
