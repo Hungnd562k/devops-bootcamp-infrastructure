@@ -1,0 +1,30 @@
+pipeline {
+    agent {
+        label 'backend_api'
+    }
+    options {
+
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Build'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Test'
+            }
+        }
+        stage('Quality gate') {
+            steps {
+                echo 'Quality gate'
+            }
+        }
+    }
+}
