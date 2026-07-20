@@ -9,9 +9,17 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    // Mount thư mục cache để npm install chạy nhanh hơn ở các lần sau
+                    args '-v /tmp/.npm-cache:/root/.npm' 
+                }
+            }
             steps {
-                sh 'dotnet restore'
-                sh 'dotnet build --configuration Release --no-restore'
+                sh 'node -v'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('Test') {
