@@ -5,12 +5,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checkout'
+                git credentialsId: 'f50ff99b-330f-4bfb-8ad5-5953526e33b4', url: 'https://github.com/...git', branch: 'main'
             }
         }
         stage('Build') {
             steps {
-                echo 'Build'
+                sh 'dotnet restore'
+                sh 'dotnet build --configuration Release --no-restore'
             }
         }
         stage('Test') {
