@@ -2,9 +2,6 @@ pipeline {
     agent {
         label 'backend_api'
     }
-    options {
-
-    }
     stages {
         stage('Checkout') {
             steps {
