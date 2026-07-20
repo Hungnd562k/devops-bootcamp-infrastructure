@@ -1,6 +1,11 @@
 pipeline {
     agent {
-        label 'backend_api'
+        docker {
+            image 'node:18-alpine'
+            label 'backend_api'
+            // Mount thư mục cache để npm install chạy nhanh hơn ở các lần sau
+            args '-v /tmp/.npm-cache:/root/.npm'
+        }
     }
     stages {
         stage('Checkout') {
@@ -9,13 +14,6 @@ pipeline {
             }
         }
         stage('Build') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    // Mount thư mục cache để npm install chạy nhanh hơn ở các lần sau
-                    args '-v /tmp/.npm-cache:/root/.npm' 
-                }
-            }
             steps {
                 sh 'node -v'
                 sh 'npm install'
