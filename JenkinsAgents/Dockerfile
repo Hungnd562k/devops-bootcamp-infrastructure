@@ -5,5 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y docker.io
 
 ARG DOCKER_GID=986
-RUN groupmod -g ${DOCKER_GID} docker || groupadd -g ${DOCKER_GID} docker_host
-RUN usermod -aG docker,docker_host jenkins
+# Đổi GID của group docker sẵn có sang 986
+RUN groupmod -g ${DOCKER_GID} docker
+# Thêm user jenkins vào group docker
+RUN usermod -aG docker jenkins
