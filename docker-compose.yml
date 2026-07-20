@@ -1,0 +1,51 @@
+services:
+  frontend_web:
+    image: hungnd2/devops-bootcamp-frontend:v1.0.0
+    pull_policy: missing
+    container_name: frontend_web
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend_api:
+        condition: service_healthy
+        restart: true
+  backend_api:
+    image: hungnd2/devops-bootcamp-backend:v1.0.0
+    pull_policy: missing
+    container_name: backend_api
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${POSTGRES_USER}
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5000/ || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+        restart: true
+  postgres_db:
+    image: postgres:trixie
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - "D:\\1. Learn_DevOps\\Proj\\Postgres:/var/lib/postgresql"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
