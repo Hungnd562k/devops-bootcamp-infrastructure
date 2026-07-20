@@ -8,6 +8,8 @@ services:
       - "2222:22"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins
   JenkinsAgent_2:
     image: ssh-agent
     container_name: JenkinsAgent_2
@@ -17,6 +19,8 @@ services:
       - "3333:22"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins
   JenkinsAgent_3:
     image: ssh-agent
     container_name: JenkinsAgent_3
@@ -26,6 +30,8 @@ services:
       - "4444:22"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins
 
 networks:
   jenkins:
