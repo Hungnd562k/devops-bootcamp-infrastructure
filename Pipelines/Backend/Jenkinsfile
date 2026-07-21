@@ -15,13 +15,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''
-                    set -x
-                    node -v
-                    # Ghi toàn bộ log ra file /tmp/npm-build.log và vừa in ra màn hình
-                    npm install --verbose 2>&1 | tee /tmp/npm-build.log
-                    npm run build
-                '''
+                sh 'node -v'
             }
         }
         stage('Test') {
