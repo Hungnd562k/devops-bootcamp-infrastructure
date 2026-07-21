@@ -15,9 +15,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'node -v'
-                sh 'npm install'
-                sh 'npm run build'
+                sh '''
+                    set -x
+                    node -v
+                    npm install --verbose
+                    npm run build
+                '''
             }
         }
         stage('Test') {
