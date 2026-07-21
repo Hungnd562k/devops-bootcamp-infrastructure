@@ -2,6 +2,11 @@ pipeline {
     agent {
         label 'be'
     }
+
+    tools {
+        nodejs 'NodeJS' 
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,13 +15,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''
-                    docker run --rm \
-                        -v "$(pwd)":/app \
-                        -w /app \
-                        node:18-alpine \
-                        sh -c "node -v && npm install && npm run build"
-                '''
+                sh 'node -v'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('Test') {
