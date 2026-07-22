@@ -9,6 +9,11 @@ pipeline {
         IMAGE_TAG = 'latest'
     }
     stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: 'f50ff99b-330f-4bfb-8ad5-5953526e33b4', url: 'https://github.com/Hungnd562k/devops-bootcamp-todolist-backend-api.git', branch: 'master'
+            }
+        }
         stage('Build Image & push image') {
             steps {
                 script {
