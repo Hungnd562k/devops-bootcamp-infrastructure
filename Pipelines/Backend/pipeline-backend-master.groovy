@@ -9,7 +9,6 @@ pipeline {
         IMAGE_TAG = 'latest'
     }
     stages {
-        # TODO Bổ sung CI stage
         stage('Build Image & push image') {
             steps {
                 echo 'Build image'
