@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy to k8s') {
             steps {
                 dir('infrastructure') {
-                    git credentialsId: 'your-credentials-id',
+                    git credentialsId: 'f50ff99b-330f-4bfb-8ad5-5953526e33b4',
                         url: 'https://github.com/Hungnd562k/devops-bootcamp-infrastructure.git',
                         branch: 'main'
                 }
