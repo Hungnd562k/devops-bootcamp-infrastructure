@@ -16,6 +16,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageclassname: local-path
   resources:
     requests:
       storage: 10Gi # Dung lượng ổ cứng muốn cấp phát cho Postgres
