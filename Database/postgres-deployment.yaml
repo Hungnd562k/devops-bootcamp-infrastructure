@@ -56,7 +56,7 @@ spec:
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgresql/data # Mount chuẩn cho Postgres
+              mountPath: /var/lib/postgresql # Mount chuẩn cho Postgres
           # Chuyển đổi healthcheck từ Docker Compose sang Liveness/Readiness Probe
           readinessProbe:
             exec:
