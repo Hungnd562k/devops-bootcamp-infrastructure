@@ -14,14 +14,37 @@ pipeline {
                 git credentialsId: 'f50ff99b-330f-4bfb-8ad5-5953526e33b4', url: 'https://github.com/Hungnd562k/devops-bootcamp-todolist-backend-api.git', branch: 'master'
             }
         }
-        stage('Build Image & push image') {
+        stage('Build Image') {
             steps {
                 script {
                     echo 'Build image'
                     docker.withRegistry(REGISTRY_URL, DOCKER_CREDENTIAL_ID) {
-                        def myImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}", ".")
-                        myImage.push()
+                        docker.build("${IMAGE_NAME}:${IMAGE_TAG}", ".")
                     }
+                }
+            }
+        }
+        stage('Push Image') {
+            steps {
+                input {
+                    message "Approval for pushing to registry?"
+                    ok "Approve"
+                    submitter "admin"
+                }
+                steps {
+                    script {
+                       docker.withRegistry(REGISTRY_URL, DOCKER_CREDENTIAL_ID) {
+                            docker.push("${IMAGE_NAME}:${IMAGE_TAG}", ".")
+                        } 
+                    }
+                }
+            }
+        }
+        stage('Deploy to k8s') {
+            withKubeConfig([credentialsId: 'k8s-kubeconfig-id']) {
+                dir('Pipelines/Backend/deployments') {
+                    sh 'kubectl apply -f .'
+                    sh 'kubectl rollout restart deployment backend-api'
                 }
             }
         }
