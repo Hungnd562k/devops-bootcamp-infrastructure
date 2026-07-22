@@ -25,26 +25,26 @@ pipeline {
             }
         }
         stage('Push Image') {
+            input {
+                message "Approval for pushing to registry?"
+                ok "Approve"
+                submitter "admin"
+            }
             steps {
-                input {
-                    message "Approval for pushing to registry?"
-                    ok "Approve"
-                    submitter "admin"
-                }
-                steps {
-                    script {
-                       docker.withRegistry(REGISTRY_URL, DOCKER_CREDENTIAL_ID) {
-                            docker.push("${IMAGE_NAME}:${IMAGE_TAG}", ".")
-                        } 
-                    }
+                script {
+                    docker.withRegistry(REGISTRY_URL, DOCKER_CREDENTIAL_ID) {
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                    } 
                 }
             }
         }
         stage('Deploy to k8s') {
-            withKubeConfig([credentialsId: 'k8s-kubeconfig-id']) {
-                dir('Pipelines/Backend/deployments') {
-                    sh 'kubectl apply -f .'
-                    sh 'kubectl rollout restart deployment backend-api'
+            steps {
+                withKubeConfig([credentialsId: 'k8s-kubeconfig-id']) {
+                    dir('Pipelines/Backend/deployments') {
+                        sh 'kubectl apply -f .'
+                        sh 'kubectl rollout restart deployment backend-api'
+                    }
                 }
             }
         }
