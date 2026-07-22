@@ -40,8 +40,14 @@ pipeline {
         }
         stage('Deploy to k8s') {
             steps {
+                dir('infrastructure') {
+                    git credentialsId: 'your-credentials-id',
+                        url: 'https://github.com/Hungnd562k/devops-bootcamp-infrastructure.git',
+                        branch: 'main'
+                }
+
                 withKubeConfig([credentialsId: 'k8s-kubeconfig-id']) {
-                    dir('Pipelines/Backend/deployments') {
+                    dir('infrastructure/Pipelines/Backend/deployments') {
                         sh 'kubectl apply -f .'
                         sh 'kubectl rollout restart deployment backend-api'
                     }
