@@ -23,20 +23,6 @@ spec:
                 name: frontend-configmap
             - secretRef:
                 name: frontend-secret
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            timeoutSeconds: 7
-            failureThreshold: 3
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 15
           volumeMounts:
             - name: log-volume
               mountPath: /app/log
