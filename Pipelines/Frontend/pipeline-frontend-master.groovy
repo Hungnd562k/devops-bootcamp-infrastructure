@@ -49,7 +49,7 @@ pipeline {
                 withKubeConfig([credentialsId: 'k8s-kubeconfig-id']) {
                     dir('infrastructure/Pipelines/Frontend/deployments') {
                         sh 'kubectl apply -f .'
-                        sh 'kubectl rollout restart deployment backend-api'
+                        sh 'kubectl rollout restart deployment frontend'
                     }
                 }
             }
