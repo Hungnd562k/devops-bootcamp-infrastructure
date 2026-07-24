@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'be'
+        label 'fe'
     }
     environment {
         REGISTRY_URL = 'https://index.docker.io/v1/'
