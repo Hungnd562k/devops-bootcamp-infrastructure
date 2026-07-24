@@ -4,4 +4,4 @@ metadata:
   name: frontend-configmap
 data:
   NODE_ENV: "production"
-  PORT: "300"
+  PORT: "3000"
