@@ -17,7 +17,7 @@ spec:
           image: hungnd2/devops-bootcamp-frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5000
+            - containerPort: 3000
           envFrom:
             - configMapRef:
                 name: frontend-configmap
