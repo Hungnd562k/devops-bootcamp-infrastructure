@@ -64,3 +64,10 @@ spec:
                 name: frontend-service
                 port:
                   number: 3000
+          - path: /_next/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 3000
