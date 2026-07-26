@@ -88,6 +88,8 @@ spec:
               mountPath: /etc/promtail
             - name: logs
               mountPath: /var/log/pods
+            - name: containers
+              mountPath: /var/log/containers
       volumes:
         - name: config
           configMap:
@@ -95,3 +97,6 @@ spec:
         - name: logs
           hostPath:
             path: /var/log/pods
+        - name: containers
+          hostPath:
+            path: /var/log/containers
