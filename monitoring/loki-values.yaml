@@ -38,23 +38,21 @@ loki:
 
 ignoreMinioDeprecation: true  # Temporary workaround – MinIO will be removed 2026-10-31
 
-storage:
-    type: filesystem
-    bucketNames:
-      chunks: chunks
-      ruler: ruler
-      admin: admin
-    persistentVolume:
-      enabled: true
-      storageClassName: local-path
-
+# Cấu hình MinIO kèm StorageClass
 minio:
   enabled: true
+  persistence:
+    enabled: true
+    storageClass: local-path
       
 deploymentMode: SingleBinary
 
+# Cấu hình SingleBinary kèm StorageClass cho Loki Pod
 singleBinary:
   replicas: 1
+  persistence:
+    enabled: true
+    storageClass: local-path
 
 gateway:
   enabled: true
