@@ -37,6 +37,17 @@ loki:
     enable_api: true
 
 ignoreMinioDeprecation: true  # Temporary workaround – MinIO will be removed 2026-10-31
+
+storage:
+    type: filesystem
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+    persistentVolume:
+      enabled: true
+      storageClassName: local-path
+
 minio:
   enabled: true
       
